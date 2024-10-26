@@ -1,59 +1,100 @@
+
 'use server'
 
 import * as z from 'zod';
-
-// Import the Genkit core libraries and plugins.
-import { generate } from '@genkit-ai/ai';
+import { index, generate } from '@genkit-ai/ai';
 import { configureGenkit } from '@genkit-ai/core';
-import { defineFlow, runFlow } from '@genkit-ai/flow';
+import { defineFlow } from '@genkit-ai/flow';
 import { googleAI } from '@genkit-ai/googleai';
+import pdf from 'pdf-parse/lib/pdf-parse';
+import { Document } from '@genkit-ai/ai/retriever';
+import { retrieve } from '@genkit-ai/ai/retriever';
+import { chunk } from 'llm-chunk';
+import devLocalVectorstore, { devLocalIndexerRef, devLocalRetrieverRef } from "@genkit-ai/dev-local-vectorstore";
+import { textEmbeddingGecko001, gemini15Flash } from '@genkit-ai/googleai';
 
-// Import models from the Google AI plugin. The Google AI API provides access to
-// several generative models. Here, we import Gemini 1.5 Flash.
-import { gemini15Flash } from '@genkit-ai/googleai';
-
+// Genkit yapılandırması
 configureGenkit({
   plugins: [
-    // Load the Google AI plugin. You can optionally specify your API key
-    // by passing in a config object; if you don't, the Google AI plugin uses
-    // the value from the GOOGLE_GENAI_API_KEY environment variable, which is
-    // the recommended practice.
     googleAI(),
+    devLocalVectorstore([
+      {
+        embedder: textEmbeddingGecko001,
+        indexName: "facts",
+      },
+    ]),
   ],
-  // Log debug output to tbe console.
   logLevel: "debug",
-  // Perform OpenTelemetry instrumentation and enable trace collection.
   enableTracingAndMetrics: true,
 });
 
-// Define a simple flow that prompts an LLM to generate menu suggestions.
-const menuSuggestionFlow = defineFlow(
-  {
-    name: 'menuSuggestionFlow',
-    inputSchema: z.string(),
-    outputSchema: z.string(),
-  },
-  async (subject) => {
-    // Construct a request and send it to the model API.
-    const llmResponse = await generate({
-      prompt: `Suggest an item for the menu of a ${subject} themed restaurant`,
-      model: gemini15Flash,
-      config: {
-        temperature: 1,
+const demoRtr = devLocalRetrieverRef("facts");
+const demoIdx = devLocalIndexerRef("facts");
+
+// Akış fonksiyonlarını doğrudan fonksiyonlara atayarak tanımlayalım
+
+export const indexFlow = async (pdfContent: string) => {
+  try {
+    const pdfBuffer = Buffer.from(pdfContent, 'base64');
+    const pdfText = await pdf(pdfBuffer);
+    const chunks = chunk(pdfText.text, {
+      minLength: 1000,
+      maxLength: 2000,
+      splitter: 'sentence',
+      overlap: 100,
+      delimiters: ""
+    });
+
+    await index({
+      indexer: demoIdx,
+      documents: chunks.map(c => Document.fromText(c)),
+    });
+  } catch (error) {
+    console.error("Error in index flow:", error);
+    throw error;
+  }
+};
+
+export const RAGSoruCevapFlow = async (prompt: string) => {
+  try {
+    const docs = await retrieve({
+      retriever: demoRtr,
+      query: prompt,
+      options: {
+        k: 5
       },
     });
 
-    // Handle the response from the model API. In this sample, we just
-    // convert it to a string, but more complicated flows might coerce the
-    // response into structured output or chain the response into another
-    // LLM call, etc.
-    return llmResponse.text();
-  }
-);
+    const response = await generate({
+      model: gemini15Flash,
+      prompt: prompt,
+      context: docs
+    });
 
-export async function callMenuSuggestionFlow() {
-  // Invoke the flow. The value you pass as the second parameter must conform to
-  // your flow's input schema.
-  const flowResponse = await runFlow(menuSuggestionFlow, 'banana');
-  console.log(flowResponse);
+    return response.text();
+  } catch (error) {
+    console.error("Error in RAGSoruCevap flow:", error);
+    throw error;
+  }
+};
+
+// Çağrı işlevleri
+export async function callRAGSoruCevap(prompt: string) {
+  try {
+    const response = await RAGSoruCevapFlow(prompt);  // RAGSoruCevapFlow doğrudan çağrılıyor
+    return response;
+  } catch (error) {
+    console.error("Error calling RAGSoruCevap:", error);
+    throw error;
+  }
+}
+
+export async function callIndexFlow(pdfContent: string) {
+  try {
+    const indexing = await indexFlow(pdfContent);  // indexFlow doğrudan çağrılıyor
+    return indexing;
+  } catch (error) {
+    console.error("Error calling index flow:", error);
+    throw error;
+  }
 }

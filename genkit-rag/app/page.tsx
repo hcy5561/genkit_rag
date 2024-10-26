@@ -1,101 +1,165 @@
-import Image from "next/image";
 
-export default function Home() {
+'use client';
+
+import { useState, useRef, FormEvent } from 'react';
+import { callRAGSoruCevap, callIndexFlow } from '@/app/genkit';
+
+export default function ChatBot() {
+  const [inputText, setInputText] = useState<string>('');
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [chatHistory, setChatHistory] = useState<{ user: string, bot: string }[]>([]);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  async function handleFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const pdfContent = e.target?.result as string;
+        await callIndexFlow(pdfContent.split(',')[1]);
+      };
+      reader.readAsDataURL(file);
+      setPdfFile(file);
+    }
+  }
+
+  async function handleUserInput(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (inputText.trim()) {
+      const userMessage = inputText;
+      setChatHistory((prev) => [...prev, { user: userMessage, bot: "Yanıt Bekleniyor..." }]);
+      setInputText(''); // Clear input field
+
+      // Get the bot response
+      try {
+        const botResponse = await callRAGSoruCevap(userMessage);
+        setChatHistory((prev) => {
+          const newHistory = [...prev];
+          newHistory[newHistory.length - 1].bot = botResponse;
+          return newHistory;
+        });
+
+        // Scroll to the latest message
+        chatContainerRef.current?.scrollTo({ top: chatContainerRef.current.scrollHeight, behavior: 'smooth' });
+      } catch (error) {
+        console.error("Error getting bot response:", error);
+      }
+    }
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main style={styles.mainContainer}>
+      <section style={styles.chatContainer} ref={chatContainerRef}>
+        {chatHistory.map((chat, index) => (
+          <div key={index} style={styles.messageContainer}>
+            <div style={styles.userMessage}>
+              <span style={styles.userLabel}>Kullanıcı:</span> {chat.user}
+            </div>
+            <div style={styles.botMessage}>
+              <span style={styles.botLabel}>Bot:</span> {chat.bot}
+            </div>
+          </div>
+        ))}
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <form onSubmit={handleUserInput} style={styles.form}>
+        <input
+          type="text"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder="Sorunuzu buraya yazın..."
+          style={styles.input}
+        />
+        <button type="submit" style={styles.submitButton}>Gönder</button>
+      </form>
+
+      <div style={styles.fileUploadContainer}>
+        <label htmlFor="pdfUpload" style={styles.uploadLabel}>Bir PDF dosyası yükleyin:</label>
+        <input type="file" id="pdfUpload" onChange={handleFileUpload} style={styles.fileInput} />
+      </div>
+    </main>
   );
 }
+
+// Stil nesneleri
+const styles = {
+  mainContainer: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    backgroundColor: '#f4f4f9',
+    minHeight: '100vh',
+    fontFamily: 'Arial, sans-serif',
+  },
+  chatContainer: {
+    width: '100%',
+    maxWidth: '600px',
+    height: '60vh',
+    overflowY: 'auto' as const,
+    backgroundColor: '#ffffff',
+    padding: '20px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    borderRadius: '10px',
+    marginBottom: '20px',
+  },
+  messageContainer: {
+    marginBottom: '15px',
+  },
+  userMessage: {
+    backgroundColor: '#e0f7fa',
+    padding: '10px',
+    borderRadius: '8px',
+    marginBottom: '5px',
+    textAlign: 'left' as const,
+  },
+  botMessage: {
+    backgroundColor: '#ffecb3',
+    padding: '10px',
+    borderRadius: '8px',
+    textAlign: 'left' as const,
+  },
+  userLabel: {
+    fontWeight: 'bold' as const,
+    color: '#00796b',
+  },
+  botLabel: {
+    fontWeight: 'bold' as const,
+    color: '#f57c00',
+  },
+  form: {
+    display: 'flex',
+    width: '100%',
+    maxWidth: '600px',
+  },
+  input: {
+    flexGrow: 1,
+    padding: '10px',
+    borderRadius: '5px 0 0 5px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+  },
+  submitButton: {
+    padding: '10px 20px',
+    backgroundColor: '#00796b',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '0 5px 5px 0',
+    cursor: 'pointer',
+  },
+  fileUploadContainer: {
+    width: '100%',
+    maxWidth: '600px',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    marginTop: '20px',
+  },
+  uploadLabel: {
+    marginBottom: '10px',
+  },
+  fileInput: {
+    cursor: 'pointer',
+  },
+};
