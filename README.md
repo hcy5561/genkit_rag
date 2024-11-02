@@ -52,7 +52,7 @@
     npm install -g genkit @genkit-ai/tools-common
     npm run dev
     
-  genkit-basic genkit RAG app (working port: 5000):
+  genkit-rag genkit RAG app (working port: 5000):
     
     cd genkit-basic
     npm install    
