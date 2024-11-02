@@ -35,10 +35,10 @@
 defineFlow({name: "index"}, async () => {
     const pdfText = await pdf(fs.readFileSync("example.pdf"));
     const chunks = chunk(pdfText.text, {
-        minLength: 1000,
-        maxLength: 2000,
+        minLength: 0,
+        maxLength: 3000,
         splitter: 'sentence',
-        overlap: 100,
+        overlap: 0,
         delimiters: ""
     });
 
@@ -65,7 +65,7 @@ defineFlow(
           retriever:demoRtr,
           query: prompt,
           options: {
-              k: 5
+              k: 4
           },
       })
 
@@ -75,7 +75,12 @@ defineFlow(
     const response = await generate({
       model: gemini15Flash,
       prompt: prompt,
-      context: docs
+      context: docs,
+      config: {
+         temperature: 0,
+         topP: 0.95,
+         topK: 40         
+        },
     });
 
     // Handle the response from the model API.
@@ -89,10 +94,10 @@ defineFlow(
       const pdfBuffer = Buffer.from(pdfContent, 'base64');
       const pdfText = await pdf(pdfBuffer);
       const chunks = chunk(pdfText.text, {
-        minLength: 1000,
-        maxLength: 2000,
+        minLength: 0,
+        maxLength: 3000,
         splitter: 'sentence',
-        overlap: 100,
+        overlap: 0,
         delimiters: ""
       });
 
@@ -112,14 +117,19 @@ defineFlow(
         retriever: demoRtr,
         query: prompt,
         options: {
-          k: 5
+          k: 4
         },
       });
 
       const response = await generate({
         model: gemini15Flash,
         prompt: prompt,
-        context: docs
+        context: docs,
+        config: {
+         temperature: 0,
+         topP: 0.95,
+         topK: 40         
+        },
       });
 
       return response.text();
