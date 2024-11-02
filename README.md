@@ -1,6 +1,6 @@
 **Run Firebase Genkit using idx:**
 
-
+1-Click Button and 
 
 
 
