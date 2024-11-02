@@ -70,7 +70,7 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
     
   genkit-rag genkit RAG app (working port: 5000):
     
-    cd genkit-basic
+    cd genkit-rag
     npm install    
     npm install -g genkit @genkit-ai/tools-common
     genkit start --port 5000
