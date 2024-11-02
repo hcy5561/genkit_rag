@@ -17,36 +17,45 @@
   </picture>
 </a>
 
-2-Open new terminal from main menu.
-
-3-Split to run all terminals simultaneously:
-
-![image](https://github.com/user-attachments/assets/c354fc16-a161-4e9d-a53d-c67a32339e19)
-
-4-Create for terminal panel:
-
-![image](https://github.com/user-attachments/assets/9eebe7ee-1021-49e8-8492-073a5fd99e69)
-
-5-Go .idx file in idx left menu. Open dev.nix and enter your google api key:
+2-Go .idx file in idx left menu. Open dev.nix and enter your google api key:
 
 ![image](https://github.com/user-attachments/assets/7b4a592e-52b9-4cbd-89ac-ad5ec613fd3e)
 
-6-Run below commands for all terminals, respectively:
-  
-  Terminal 1 (working port: 3000):
+3-Open new terminal from main menu.
 
-    npm install
+(Option) Split to run all terminals simultaneously and create terminal panels:
+
+![image](https://github.com/user-attachments/assets/c354fc16-a161-4e9d-a53d-c67a32339e19)
+
+![image](https://github.com/user-attachments/assets/9eebe7ee-1021-49e8-8492-073a5fd99e69)
+
+4-Run below commands in terminal, respectively:
+  
+  genkit-basic next.js web app (working port: 3000):
     cd genkit-basic
+    npm install
     npm install -g genkit @genkit-ai/tools-common
     npm run dev
     
-  Terminal 2 (working port: 5000):
+  genkit-basic genkit app (working port: 5000):
     
     cd genkit-basic
+    npm install    
     npm install -g genkit @genkit-ai/tools-common
     genkit start --port 5000
     
-
+  genkit-rag next.js RAG web app (working port: 3000):
+    cd genkit-rag
+    npm install
+    npm install -g genkit @genkit-ai/tools-common
+    npm run dev
+    
+  genkit-basic genkit RAG app (working port: 5000):
+    
+    cd genkit-basic
+    npm install    
+    npm install -g genkit @genkit-ai/tools-common
+    genkit start --port 5000
 
 
 
