@@ -17,7 +17,7 @@ export default function Home() {
     const suggestion = await callMenuSuggestionFlow(theme);
     setMenu(suggestion);
   }
-
+  
   const currentStyles = theme === 'dark' ? styles.dark : styles.light;
 
   return (
