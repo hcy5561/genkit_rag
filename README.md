@@ -1,3 +1,9 @@
+**Run Firebase Genkit using idx:**
+
+
+
+
+
 <a href="https://idx.google.com/import?url=https://github.com/hcy5561/genkit_rag/tree/main">
   <picture>
     <source
