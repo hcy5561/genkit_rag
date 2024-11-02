@@ -32,6 +32,7 @@
 4-Run below commands in terminal, respectively:
   
   genkit-basic next.js web app (working port: 3000):
+  
     cd genkit-basic
     npm install
     npm install -g genkit @genkit-ai/tools-common
@@ -45,6 +46,7 @@
     genkit start --port 5000
     
   genkit-rag next.js RAG web app (working port: 3000):
+  
     cd genkit-rag
     npm install
     npm install -g genkit @genkit-ai/tools-common
