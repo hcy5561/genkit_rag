@@ -34,7 +34,6 @@ export default function ChatBot() {
       setInputText('');
 
       try {
-        // Geçmiş konuşmaları da dahil ederek bot yanıtını al
         const botResponse = await callRAGSoruCevap(`${previousConversation}\nKullanıcı: ${userMessage}`);
         setChatHistory((prev) => {
           const newHistory = [...prev];
@@ -42,7 +41,6 @@ export default function ChatBot() {
           return newHistory;
         });
 
-        // En son mesaja kaydır
         chatContainerRef.current?.scrollTo({ top: chatContainerRef.current.scrollHeight, behavior: 'smooth' });
       } catch (error) {
         console.error('Error getting bot response:', error);
