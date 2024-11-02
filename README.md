@@ -4,7 +4,7 @@
 
 
 
-<a href="https://idx.google.com/import?url=https://github.com/hcy5561/genkit_rag/tree/main">
+<a href="https://idx.google.com/import?url=https://github.com/hcy5561/genkit_rag.git">
   <picture>
     <source
       media="(prefers-color-scheme: dark)"
