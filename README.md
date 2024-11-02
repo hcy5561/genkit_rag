@@ -1,8 +1,6 @@
-**Run Firebase Genkit using idx:**
+**Run Firebase Genkit with RAG using idx:**
 
-1-Click Button and 
-
-
+Click following button and import.
 
 <a href="https://idx.google.com/import?url=https://github.com/hcy5561/genkit_rag.git">
   <picture>
@@ -18,3 +16,15 @@
       src="https://cdn.idx.dev/btn/open_purple_32.svg">
   </picture>
 </a>
+
+Open new terminal from main menu.
+
+Split to run all terminals simultaneously:
+
+![image](https://github.com/user-attachments/assets/c354fc16-a161-4e9d-a53d-c67a32339e19)
+
+
+
+
+
+
