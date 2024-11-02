@@ -36,7 +36,7 @@ defineFlow({name: "index"}, async () => {
     const pdfText = await pdf(fs.readFileSync("example.pdf"));
     const chunks = chunk(pdfText.text, {
         minLength: 0,
-        maxLength: 3000,
+        maxLength: 2000,
         splitter: 'sentence',
         overlap: 0,
         delimiters: ""
@@ -79,7 +79,7 @@ defineFlow(
       config: {
          temperature: 0,
          topP: 0.95,
-         topK: 40         
+         topK: 50         
         },
     });
 
@@ -95,7 +95,7 @@ defineFlow(
       const pdfText = await pdf(pdfBuffer);
       const chunks = chunk(pdfText.text, {
         minLength: 0,
-        maxLength: 3000,
+        maxLength: 2000,
         splitter: 'sentence',
         overlap: 0,
         delimiters: ""
@@ -128,7 +128,7 @@ defineFlow(
         config: {
          temperature: 0,
          topP: 0.95,
-         topK: 40         
+         topK: 50         
         },
       });
 
