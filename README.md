@@ -1,4 +1,20 @@
-**Run Firebase Genkit with RAG using idx:**
+# Google Samsun Developer Group DevFest 2024
+
+DevFest 2024 has arrived, and the focus on Responsible AI is more relevant than ever. Join us in examining the critical role of developing technologies that enhance productivity while minimizing harm. Let’s work together to create a future where AI responsibly benefits humanity. Locate a DevFest near you and get ready for an incredible experience.
+
+DevFest events are large-scale, community-focused technology gatherings organized by Google Developer Groups (GDG) aimed at developers. These events take place in various cities around the world and provide developers with the opportunity to learn about, apply, and network with others in the field regarding the latest technologies.
+
+DevFest events bring together local and global technology communities. Participants have the chance to meet other developers with similar interests, share experiences, and collaborate. These events serve as an excellent platform for developers to discover new opportunities for their careers.
+
+DevFest offers a wide range of activities, including technical talks, hands-on workshops, panel discussions, and networking sessions. Topics covered at the events include artificial intelligence, machine learning, cloud computing, data science, and web technologies.
+
+DevFest events have a significant impact among technology communities worldwide. Each year, thousands of participants come together at DevFest events to discuss the latest developments in the tech world and to innovate. These gatherings provide platforms for showcasing Google’s newest products and technologies, enabling attendees to shape the future of technology.
+
+## **Firebase Genkit**
+
+Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate the development of AI and machine learning applications. It seamlessly integrates Firebase services like Authentication, Firestore, and Cloud Functions, enabling rapid deployment of user authentication, data management, and workflow automation. This toolkit allows developers to create custom functional modules that optimize app performance and integrate smoothly with cloud infrastructure. As a result, applications become more secure, efficient, and scalable, helping developers save time and focus on advanced features.
+
+### **Run Firebase Genkit with RAG using idx:**
 
 1-Click following button and import.
 
