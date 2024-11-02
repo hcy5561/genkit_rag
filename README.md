@@ -35,8 +35,8 @@
   
   Terminal 1 (working port: 3000):
     
-    cd genkit-basic
-    npm install
+    npm install -g npm
+    cd genkit-basic  
     npm install -g genkit @genkit-ai/tools-common
     npm run dev
     
