@@ -17,7 +17,7 @@
   </picture>
 </a>
 
-2-Go .idx file in idx left menu. Open dev.nix and enter your google api key:
+2-Go .idx file in idx left menu. Open dev.nix and enter your google api key. Again build repository:
 
 ![image](https://github.com/user-attachments/assets/7b4a592e-52b9-4cbd-89ac-ad5ec613fd3e)
 
