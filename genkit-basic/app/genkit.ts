@@ -24,7 +24,7 @@ configureGenkit({
 // Define a simple flow that prompts an LLM to generate turkish food recipes.
 const menuSuggestionFlow = defineFlow(
   {
-    name: 'Türk Yemekleri Flow_Gemini 1.5 Flash',
+    name: 'Türk Yemekleri',
     inputSchema: z.string(),
     outputSchema: z.string(),
   },
@@ -42,7 +42,7 @@ const menuSuggestionFlow = defineFlow(
 );
 
 export async function callMenuSuggestionFlow(theme: string) {
-  const flowResponse = await runFlow(menuSuggestionFlow, theme); // runFlow kullanımı
+  const flowResponse = await runFlow(menuSuggestionFlow, theme);
   console.log(flowResponse);
   return flowResponse;
 }
