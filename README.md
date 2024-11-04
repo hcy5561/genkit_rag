@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/51f4df7b-d4d3-4e05-ac17-e22c9e049e2d)
+![image](https://github.com/user-attachments/assets/7e8f794f-afed-4b83-9428-c9d04a417412)
 
 # Google Samsun Developer Group DevFest 2024
 
