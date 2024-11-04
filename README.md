@@ -1,6 +1,9 @@
 ![image](https://github.com/user-attachments/assets/7e8f794f-afed-4b83-9428-c9d04a417412)
 
-# Google Samsun Developer Group DevFest 2024
+## Firebase Genkit RAG with next.js, 
+We developed a Retrieval-Augmented Generation (RAG)-based chatbot that answers questions from PDF documents using Firebase GenKit. For this purpose, we created a chatbot using both the GenKit interface and Next.js framework. Additionally, we implemented a Next.js-based Q&A system providing information about Turkish cuisine on the GenKit Basic side. All these codes are provided as examples. Specifically, you can customize and modify the contents of the genkit.ts and page.tsx files in the app folder to suit your own project. We also presented this work as a workshop at the Samsun GDG DevFest event.
+
+### Google Samsun Developer Group DevFest 2024
 
 DevFest 2024 has arrived, and the focus on Responsible AI is more relevant than ever. Join us in examining the critical role of developing technologies that enhance productivity while minimizing harm. Let’s work together to create a future where AI responsibly benefits humanity. Locate a DevFest near you and get ready for an incredible experience.
 
@@ -12,11 +15,11 @@ DevFest offers a wide range of activities, including technical talks, hands-on w
 
 DevFest events have a significant impact among technology communities worldwide. Each year, thousands of participants come together at DevFest events to discuss the latest developments in the tech world and to innovate. These gatherings provide platforms for showcasing Google’s newest products and technologies, enabling attendees to shape the future of technology.
 
-## **Firebase Genkit**
+### Firebase Genkit
 
 Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate the development of AI and machine learning applications. It seamlessly integrates Firebase services like Authentication, Firestore, and Cloud Functions, enabling rapid deployment of user authentication, data management, and workflow automation. This toolkit allows developers to create custom functional modules that optimize app performance and integrate smoothly with cloud infrastructure. As a result, applications become more secure, efficient, and scalable, helping developers save time and focus on advanced features.
 
-### **Run Firebase Genkit with RAG using idx:**
+#### Run Firebase Genkit RAG using Google Project idx:
 
 1-Click following button and import.
 
@@ -75,7 +78,7 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
     npm install -g genkit @genkit-ai/tools-common
     genkit start --port 5001
 
-### **Run Firebase Genkit with RAG web app in your local computer:**
+#### Run Firebase Genkit RAG web app in your local computer:
 
 1-Firstly, download and install NPM (https://nodejs.org/en/download/package-manager), if you don't have NPM.
 
@@ -89,6 +92,8 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
     npm install -g genkit @genkit-ai/tools-common
     set GOOGLE_API_KEY=<your-api-key>
     npm run dev
+
+Thanks to onuralpszr
     
 
 
