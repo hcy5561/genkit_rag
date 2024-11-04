@@ -45,7 +45,7 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
 
 ![image](https://github.com/user-attachments/assets/c354fc16-a161-4e9d-a53d-c67a32339e19)
 
-4-Run below commands in terminal, respectively:
+4-Run below commands in terminal, respectively or seperately:
   
   genkit-basic next.js web app (working port: 3000):
   
@@ -61,19 +61,19 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
     npm install -g genkit @genkit-ai/tools-common
     genkit start --port 5000
     
-  genkit-rag next.js RAG web app (working port: 3000):
+  genkit-rag next.js RAG web app (working port: 3001):
   
     cd genkit-rag
     npm install
     npm install -g genkit @genkit-ai/tools-common
-    npm run dev
+    npm start --port 3001
     
-  genkit-rag genkit RAG app (working port: 5000):
+  genkit-rag genkit RAG app (working port: 5001):
     
     cd genkit-rag
     npm install    
     npm install -g genkit @genkit-ai/tools-common
-    genkit start --port 5000
+    genkit start --port 5001
 
 
 
