@@ -66,7 +66,7 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
     cd genkit-rag
     npm install
     npm install -g genkit @genkit-ai/tools-common
-    npm start --port 3001
+    npm run dev --port 3001
     
   genkit-rag genkit RAG app (working port: 5001):
     
@@ -75,7 +75,20 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
     npm install -g genkit @genkit-ai/tools-common
     genkit start --port 5001
 
+### **Run Firebase Genkit with RAG web app in your local computer:**
 
+1-Firstly, download and install NPM (https://nodejs.org/en/download/package-manager), if you don't have NPM.
+
+2-Install git.
+
+3-For windows users, Run CMD and Follow below commands:
+    git clone https://github.com/hcy5561/genkit_rag.git
+    cd genkit_rag/genkit-rag
+    npm install
+    npm install -g genkit @genkit-ai/tools-common
+    set GOOGLE_API_KEY=<your-api-key>
+    npm run dev
+    
 
 
 
