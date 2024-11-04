@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/51f4df7b-d4d3-4e05-ac17-e22c9e049e2d)
+
 # Google Samsun Developer Group DevFest 2024
 
 DevFest 2024 has arrived, and the focus on Responsible AI is more relevant than ever. Join us in examining the critical role of developing technologies that enhance productivity while minimizing harm. Let’s work together to create a future where AI responsibly benefits humanity. Locate a DevFest near you and get ready for an incredible experience.
@@ -42,8 +44,6 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
 (Option) Split to run all terminals simultaneously and create terminal panels:
 
 ![image](https://github.com/user-attachments/assets/c354fc16-a161-4e9d-a53d-c67a32339e19)
-
-![image](https://github.com/user-attachments/assets/9eebe7ee-1021-49e8-8492-073a5fd99e69)
 
 4-Run below commands in terminal, respectively:
   
