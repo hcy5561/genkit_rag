@@ -82,6 +82,7 @@ Firebase GenKit is a comprehensive toolset by Firebase designed to accelerate th
 2-Install git.
 
 3-For windows users, Run CMD and Follow below commands:
+
     git clone https://github.com/hcy5561/genkit_rag.git
     cd genkit_rag/genkit-rag
     npm install
